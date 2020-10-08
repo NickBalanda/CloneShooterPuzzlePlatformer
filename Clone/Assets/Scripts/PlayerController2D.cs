@@ -196,7 +196,7 @@ public class PlayerController2D : MonoBehaviour {
     public virtual void Died() {
         isMoving = false;
         isDead = true;
-        //anim.SetBool("isDead", true);
+        anim.SetBool("isDead", true);
         rb.velocity = Vector2.zero;
         if (isGrounded)
             rb.isKinematic = true;

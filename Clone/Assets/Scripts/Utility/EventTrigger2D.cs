@@ -19,18 +19,27 @@ public class EventTrigger2D : MonoBehaviour{
 
     public bool destroyScriptWhenEventTriggered = false;
 
+    bool triggered;
+
     void OnTriggerEnter2D(Collider2D other) {
         if (other.tag == tagTrigger) {
-            onTriggerEnter.Invoke();
-            if (destroyScriptWhenEventTriggered) {
-                Destroy(GetComponent<EventTriggerEnter2D>());
+            if (!triggered) {
+                triggered = true;
+                onTriggerEnter.Invoke();
+                if (destroyScriptWhenEventTriggered) {
+                    Destroy(GetComponent<EventTriggerEnter2D>());
+                }
             }
+            
         }
     }
 
     void OnTriggerExit2D(Collider2D other) {
         if (other.tag == tagTrigger) {
-            onTriggerExit.Invoke();
+            if (triggered) {
+                triggered = false;
+                onTriggerExit.Invoke();
+            }
         }
     }
 

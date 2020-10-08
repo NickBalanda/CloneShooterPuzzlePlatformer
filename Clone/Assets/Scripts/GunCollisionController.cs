@@ -7,9 +7,11 @@ public class GunCollisionController : MonoBehaviour{
     public bool isHittingObstacle;
 
     private void OnTriggerEnter2D(Collider2D collision) {
-        isHittingObstacle = true;
+        if(collision.tag == "Ground")
+            isHittingObstacle = true;
     }
     private void OnTriggerExit2D(Collider2D collision) {
-        isHittingObstacle = false;
+        if (collision.tag == "Ground")
+            isHittingObstacle = false;
     }
 }

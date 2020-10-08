@@ -96,6 +96,8 @@ public class LevelManager : MonoBehaviour{
             } else {
                 //GameOver
                 Debug.Log("Game Over");
+                currentPlayer.GetComponent<PlayerController2D>().Died();
+                LoadingManager.instance.ReloadScene();
             }
         } else {
             currentPlayers.Remove(player);
@@ -103,6 +105,12 @@ public class LevelManager : MonoBehaviour{
             index++;
             if (index > currentPlayers.Count) index = 1;
             SetPlayers();
+        }
+    }
+
+    public void StopPlayer(bool value) {
+        foreach (var player in currentPlayers) {
+            player.GetComponent<PlayerController2D>().SetIfMoving(!value);
         }
     }
 }
