@@ -68,6 +68,7 @@ TrailRenderer:
   m_LightProbeUsage: 0
   m_ReflectionProbeUsage: 0
   m_RayTracingMode: 0
+  m_RayTraceProcedural: 0
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
@@ -192,6 +193,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   isFromSelectedPlayer: 0
+  destroyedParticle: {fileID: 324432906901066922, guid: 288dc8120302810468f3fb739982a45a,
+    type: 3}
 --- !u!1 &3115383873359602915
 GameObject:
   m_ObjectHideFlags: 0
@@ -238,6 +241,7 @@ SpriteRenderer:
   m_LightProbeUsage: 1
   m_ReflectionProbeUsage: 1
   m_RayTracingMode: 0
+  m_RayTraceProcedural: 0
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:

@@ -68,6 +68,7 @@ TrailRenderer:
   m_LightProbeUsage: 0
   m_ReflectionProbeUsage: 0
   m_RayTracingMode: 0
+  m_RayTraceProcedural: 0
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
@@ -122,7 +123,7 @@ TrailRenderer:
       m_RotationOrder: 4
     colorGradient:
       serializedVersion: 2
-      key0: {r: 0.94509804, g: 0.40784314, b: 0.40784314, a: 1}
+      key0: {r: 0.9019608, g: 0.28235295, b: 0.18039216, a: 1}
       key1: {r: 1, g: 1, b: 1, a: 0.5647059}
       key2: {r: 0, g: 0, b: 0, a: 0}
       key3: {r: 0, g: 0, b: 0, a: 0}
@@ -173,7 +174,7 @@ Rigidbody2D:
   m_Mass: 1
   m_LinearDrag: 0
   m_AngularDrag: 0.05
-  m_GravityScale: 1
+  m_GravityScale: 0
   m_Material: {fileID: 0}
   m_Interpolate: 0
   m_SleepingMode: 1
@@ -191,7 +192,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 020fa6651cc69664e9efc92f187cc465, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  timeToBurst: 0
   isFromSelectedPlayer: 0
+  destroyedParticle: {fileID: 5329724410535633571, guid: 5d6506f99d5c5d04ebf31e65d2225560,
+    type: 3}
+  enemyBullet: 1
 --- !u!1 &3223174027130288973
 GameObject:
   m_ObjectHideFlags: 0
@@ -238,6 +243,7 @@ SpriteRenderer:
   m_LightProbeUsage: 1
   m_ReflectionProbeUsage: 1
   m_RayTracingMode: 0
+  m_RayTraceProcedural: 0
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
@@ -263,7 +269,7 @@ SpriteRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_Sprite: {fileID: 21300000, guid: 21541b1cc36ec884884d91d39c502eb7, type: 3}
-  m_Color: {r: 0.9433962, g: 0.40494838, b: 0.40494838, a: 1}
+  m_Color: {r: 0.9019608, g: 0.28235295, b: 0.18039216, a: 1}
   m_FlipX: 0
   m_FlipY: 0
   m_DrawMode: 0

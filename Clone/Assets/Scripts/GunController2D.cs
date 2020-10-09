@@ -45,6 +45,7 @@ public class GunController2D : MonoBehaviour
 
     void Shoot() {
         if (!gunCollisionController.isHittingObstacle) {
+            MusicManager.instance.PlaySound("Gunshot"); 
             GameObject newBullet = Instantiate(bullet, shotPoint.position, shotPoint.rotation);
             newBullet.GetComponent<Rigidbody2D>().velocity = shotPoint.transform.right * launchForce;
             newBullet.GetComponent<Bullet2D>().isFromSelectedPlayer = pc.isCurrentSelected;

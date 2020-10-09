@@ -3,6 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class LevelManager : MonoBehaviour{
 
@@ -24,6 +25,9 @@ public class LevelManager : MonoBehaviour{
     [Space(10)]
 
     public TextMeshProUGUI numOfClones;
+    public TextMeshProUGUI sceneName;
+
+    public GameObject playerExplodeParticle;
 
     public static LevelManager instance;
     private void Awake() {
@@ -35,26 +39,30 @@ public class LevelManager : MonoBehaviour{
     }
 
     private void Update() {
-        if (Input.GetAxisRaw("Mouse ScrollWheel") > 0) {
-            index++;
-            if (index > currentPlayers.Count) index = 1;
-            SetPlayers();
-        }
-        if (Input.GetAxisRaw("Mouse ScrollWheel") < 0) {
-            index--;
-            if (index < 1) index = currentPlayers.Count;
-            SetPlayers();
-        }
-        if (Input.GetKeyDown(KeyCode.E)) {
-            if (currentPlayers.Count > 1)
-                RemoveSelectedPlayer();
-        }
+        if (currentPlayers.Count > 1) {
+            if (Input.GetAxisRaw("Mouse ScrollWheel") > 0) {
+                index++;
+                if (index > currentPlayers.Count) index = 1;
+                SetPlayers();
+            }
+            if (Input.GetAxisRaw("Mouse ScrollWheel") < 0) {
+                index--;
+                if (index < 1) index = currentPlayers.Count;
+                SetPlayers();
+            }
+            if (Input.GetKeyDown(KeyCode.E)) {
+                if (currentPlayers.Count > 1)
+                    RemoveSelectedPlayer();
+            }
+        }      
     }
 
     private void Start() {
         AddNewPlayer(currentCheckpoint.transform.position,true);
 
         numOfClones.SetText(currentPlayers.Count+"/"+ maxNumberOfClones);
+
+        sceneName.SetText(SceneManager.GetActiveScene().name);
     }
 
     public void AddNewPlayer(Vector3 pos, bool isFromSelectedPlayer) {
@@ -77,17 +85,19 @@ public class LevelManager : MonoBehaviour{
         currentPlayer = currentPlayers[index - 1];
         currentPlayer.GetComponent<PlayerController2D>().SetCurrentSelected(true);
         vcam.Follow = currentPlayer.transform;
+        MusicManager.instance.PlaySound("Magic Spell 2");
+
         numOfClones.SetText(currentPlayers.Count + "/" + maxNumberOfClones);
     }
 
     void RemoveSelectedPlayer() {
-         
-            currentPlayers.Remove(currentPlayers[index - 1]);
-            Destroy(currentPlayer);
-            index++;
-            if (index > currentPlayers.Count) index = 1;
-            SetPlayers();
-              
+        //MusicManager.instance.PlaySound("Action Misc 1");
+        Instantiate(playerExplodeParticle, currentPlayer.transform.position, Quaternion.identity);
+        currentPlayers.Remove(currentPlayers[index - 1]);
+        Destroy(currentPlayer);
+        index++;
+        if (index > currentPlayers.Count) index = 1;
+        SetPlayers();
     }
     public void RemovePlayer(GameObject player) {
         if(player == currentPlayer) {
@@ -95,7 +105,8 @@ public class LevelManager : MonoBehaviour{
                 RemoveSelectedPlayer();
             } else {
                 //GameOver
-                Debug.Log("Game Over");
+                MusicManager.instance.PauseMusic(true);
+                MusicManager.instance.PlaySound("funny_fall_01");
                 currentPlayer.GetComponent<PlayerController2D>().Died();
                 LoadingManager.instance.ReloadScene();
             }

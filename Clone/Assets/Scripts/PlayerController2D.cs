@@ -111,13 +111,6 @@ public class PlayerController2D : MonoBehaviour {
 
         anim.SetFloat("speed", Mathf.Abs(moveInput));
 
-        /*
-        if (facingRight == false && moveInput > 0) {
-            Flip();
-        } else if (facingRight == true && moveInput < 0) {
-            Flip();
-        }
-        */
     }
 
     void Accelaration() {
@@ -144,27 +137,20 @@ public class PlayerController2D : MonoBehaviour {
         Vector3 scaler = transform.localScale;
         scaler.x *= -1;
         transform.localScale = scaler;
-        CreateDust();
     }
 
     public void Jump() {
         if (isGrounded) {
             extraJumps = extraJumpValue;
             if (landed) {
-                //MasterAudio.PlaySound("Footstep 2");
-                CreateDust();
                 landed = false;
-                //anim.SetBool("slamFall", false);
             }
         } else {
             landed = true;
         }
         if (Input.GetButtonDown("Jump") && extraJumps > 0) {
-            //anim.Play("2DPigJump");
-            //MasterAudio.PlaySound("Jump 4");
-            if (!isGrounded) {
-                CreateDust();
-            }
+            if(isCurrentSelected)
+                MusicManager.instance.PlaySound("clean_short_jump_01");
             rb.velocity = new Vector2(currentSpeed + externalSpeed, jumpForce);
             extraJumps--;
             isJumping = true;
@@ -200,16 +186,6 @@ public class PlayerController2D : MonoBehaviour {
         rb.velocity = Vector2.zero;
         if (isGrounded)
             rb.isKinematic = true;
-        Time.timeScale = 0.5f;
-        
-    }
-    public virtual void Revive() {
-        isMoving = true;
-        isDead = false;
-        rb.isKinematic = false;
-        //anim.SetBool("isDead", false);
-        gameObject.layer = LayerMask.NameToLayer("Player");
-        Time.timeScale = 1.0f;
     }
 
     public void SetIfMoving(bool move) {
@@ -219,10 +195,6 @@ public class PlayerController2D : MonoBehaviour {
         isMoving = move;
     }
     
-    void CreateDust() {
-        //jumpParticle.Play();
-    }
-
     void OnDrawGizmosSelected() {
         Gizmos.color = Color.blue;
         if(groundcheck)
